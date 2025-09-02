@@ -34,11 +34,19 @@ def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print("Device:", device)
 
-    # Load model from SMP with efficientnetb3 backbone (input size 300x300)
+    """
+    Load model from SMP with efficientnetb3 backbone (input size 300x300)
+
+    model = smp.Unet('efficientnet-b3',
+                in_channels=1, 
+                encoder_weights=None,
+                classes=1,
+                activation=None)
+    """
     model = smp.Unet('efficientnet-b3', 
-                 encoder_weights='imagenet',
-                 classes=1,
-                 activation=None)
+                encoder_weights='imagenet',
+                classes=1,
+                activation=None)
     model.to(device)
 
     transforms = create_transforms(IMAGE_HEIGHT, IMAGE_WIDTH, TRAIN)
