@@ -1,36 +1,29 @@
 import torch
 from tqdm import tqdm
+from utils.dice_score import dice_score
 
 def val_fn(device, loader, model, loss_fn):
     model.eval()
     loop = tqdm(loader, desc="Validating", leave=False)
 
+    # Track loss and dice score
     total_loss = 0
-    total_iou = 0
-    num_batches = 0
+    total_dice = 0
 
     with torch.no_grad():
         for data, labels in loop:
             data = data.to(device)
-            labels = labels.to(device)
+            labels = labels.to(device).float() # for BCE
 
             # Forward pass
-            predictions = model(data)['out']  # Shape: [B, C, H, W]
+            predictions = model(data)
             loss = loss_fn(predictions, labels)
             total_loss += loss.item()
 
-            # Get predicted class per pixel
-            preds = torch.argmax(predictions, dim=1)  # [B, H, W]
-            
-            # Compute IoU for each batch
-            intersection = torch.logical_and(preds == 1, labels == 1).sum(dim=(1,2))
-            union = torch.logical_or(preds == 1, labels == 1).sum(dim=(1,2))
-
-            # Avoid division by zero
-            batch_iou = torch.mean((intersection.float() + 1e-6) / (union.float() + 1e-6))
-            total_iou += batch_iou.item()
-            num_batches += 1
-
+            dice = dice_score(predictions, labels)
+            total_dice += dice.item()
+        
     avg_loss = total_loss / len(loader)
-    avg_iou = total_iou / num_batches
-    return avg_loss, avg_iou
+    avg_dice = total_dice / len(loader) 
+
+    return avg_loss, avg_dice

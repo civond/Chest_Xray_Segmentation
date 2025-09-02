@@ -24,8 +24,8 @@ PIN_MEMORY = True
 LOAD_MODEL = False
 TRAIN = True
 
-TRAIN_DATA_DIR = "./data/"
-#VALID_DATA_DIR = "./data_valid/"
+TRAIN_DATA_DIR = "./data_train/"
+VALID_DATA_DIR = "./data_valid/"
 
 CHECKPOINT_PATH = "my_checkpoint.pth.tar"
 
@@ -50,12 +50,12 @@ def main():
                               TRAIN, 
                               PIN_MEMORY)
     
-    """valid_loader = get_loader(VALID_DATA_DIR, 
+    valid_loader = get_loader(VALID_DATA_DIR, 
                               BATCH_SIZE, 
                               transforms, 
                               NUM_WORKERS, 
                               TRAIN, 
-                              PIN_MEMORY)"""
+                              PIN_MEMORY)
         
     loss_fn = nn.BCEWithLogitsLoss()
     optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
@@ -66,13 +66,14 @@ def main():
             print(f"\nEpoch: {epoch}")
 
             # Train
-            train_loss, avg_dice = train_fn(device, train_loader, model, optimizer, loss_fn, scaler)
+            train_loss, train_dice = train_fn(device, train_loader, model, optimizer, loss_fn, scaler)
             print(f"Train loss: {train_loss}")
-            print(f"Train dice: {avg_dice}")
+            print(f"Train dice: {train_dice}")
             
             # Validation step
-            #[valid_loss, valid_iou] = val_fn(device, valid_loader, model, loss_fn)
-            #print(f"Valid loss: {valid_loss}, Avg. IOU: {valid_iou}")
+            [valid_loss, valid_dice] = val_fn(device, valid_loader, model, loss_fn)
+            print(f"Valid loss: {valid_loss}")
+            print(f"Valid dice: {valid_dice}")
 
             # Save checkpoint
             checkpoint = {
