@@ -1,3 +1,4 @@
+import pandas as pd
 import torch
 import torch.optim as optim
 import torch.nn as nn
@@ -61,17 +62,25 @@ def main():
     optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
     scaler = torch.amp.GradScaler(device="cuda")
 
+    training_loss = []
+    training_dice = []
+    validation_loss = []
+    validation_dice = []
     if TRAIN == True:
         for epoch in range(NUM_EPOCHS):
             print(f"\nEpoch: {epoch}")
 
             # Train
             train_loss, train_dice = train_fn(device, train_loader, model, optimizer, loss_fn, scaler)
+            training_loss.append(train_loss)
+            training_dice.append(train_dice)
             print(f"Train loss: {train_loss}")
             print(f"Train dice: {train_dice}")
             
             # Validation step
             [valid_loss, valid_dice] = val_fn(device, valid_loader, model, loss_fn)
+            validation_loss.append(valid_loss)
+            validation_dice.append(valid_dice)
             print(f"Valid loss: {valid_loss}")
             print(f"Valid dice: {valid_dice}")
 
@@ -81,7 +90,15 @@ def main():
                 "optimizer": optimizer.state_dict()
             }
             save_checkpoint(checkpoint)
-            
+
+        df = pd.DataFrame({
+            "training_loss": training_loss,
+            "training_dice": training_dice,
+            "validation_loss": validation_loss,
+            "validation_dice": validation_dice
+        })
+        df.to_csv("training_metrics.csv", index=False)
+
     elif TRAIN == False:
         print("Interence")
         load_checkpoint(CHECKPOINT_PATH, model)

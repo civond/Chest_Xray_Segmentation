@@ -25,5 +25,7 @@ def val_fn(device, loader, model, loss_fn):
         
     avg_loss = total_loss / len(loader)
     avg_dice = total_dice / len(loader) 
+    # update tqdm loop
+    loop.set_postfix(loss=loss.item())
 
     return avg_loss, avg_dice
