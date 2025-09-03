@@ -17,3 +17,21 @@
 <div align="center">
     <img src = "./figures/figure1.png">
 </div>
+</br>
+
+<div>
+    The model achieved an average loss of 0.0213 on the test set, with a dice score of 0.98. This indicates near-perfect segmentation of lungs in the provided X-ray images. Examples of predicted masks are shown below.
+</div>
+</br>
+
+<div align="center">
+    <img src="./figures/pred_img1.png" width=250px>
+    <img src="./figures/pred1.png" width=250px>
+    </br>
+    <img src="./figures/pred_img2.png" width=250px>
+    <img src="./figures/pred2.png" width=250px>
+    </br>
+    <img src="./figures/pred_img3.png" width=250px>
+    <img src="./figures/pred3.png" width=250px>
+    </br>
+</div>
