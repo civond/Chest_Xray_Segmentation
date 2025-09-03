@@ -5,7 +5,7 @@
 </br>
 
 <div>
-    In this project, I used UNet with an EfficientNetB3 backbone to perform binary semantic segmentation on lung X-RAY images from the <a href="https://www.kaggle.com/datasets/tawsifurrahman/covid19-radiography-database">COVID-19 Radiography dataset</a>. Preprocessing was performed by applying adaptive histogram equalization to enhance contrast of the low-contrast X-Ray images, followed by a resizing operation to match the input dimensions of EfficientNetB3 (300x300). Binary cross-entropy loss was used during the training step.
+    In this project, I used UNet with an EfficientNetB3 backbone to perform binary semantic segmentation to isolate the lungs from chest X-RAY images from the <a href="https://www.kaggle.com/datasets/tawsifurrahman/covid19-radiography-database">COVID-19 Radiography dataset</a>. Preprocessing was performed by applying adaptive histogram equalization to enhance contrast of the low-contrast X-Ray images, followed by a resizing operation to match the input dimensions of EfficientNetB3 (300x300). Binary cross-entropy loss was used during the training step.
 </div>
 </br>
 
@@ -20,7 +20,7 @@
 </br>
 
 <div>
-    The model achieved an average loss of 0.0213 on the test set, with a dice score of 0.98. This indicates near-perfect segmentation of lungs in the provided X-ray images. Examples of predicted masks are shown below.
+    The model achieved an average loss of 0.0213 on the test set, with a Dice score of 0.9824, indicating near-perfect lung segmentation in the provided X-ray images. Examples of predicted masks are shown below. For further improvement, traditional post-processing techniques such as morphological operations and the watershed algorithm could be applied to refine the segmentation results.
 </div>
 </br>
 
