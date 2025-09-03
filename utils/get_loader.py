@@ -23,3 +23,26 @@ def get_loader(data_dir,
     )
 
     return loader
+
+def get_inference_loader(data_dir,
+               batch_size,
+               transform,
+               num_workers=4,
+               train=False,
+               pin_memory=True):
+    
+    dataset = ImageDataset(
+        data_dir, 
+        train=train,
+        transform=transform
+        )
+
+    loader = DataLoader(
+        dataset,
+        batch_size=batch_size,
+        num_workers=num_workers,
+        pin_memory=pin_memory,
+        shuffle=False
+    )
+
+    return loader

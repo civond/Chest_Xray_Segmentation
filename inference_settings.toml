@@ -1,0 +1,19 @@
+# ============================
+# Dataset Directories
+# ============================
+[Paths]
+test_data_dir = "./data_test/"
+save_dir = "./preds/"
+checkpoint_path = "./goodcheckpoint.pth.tar"
+
+# ============================
+# Hyperparameters
+# ============================
+[Hyperparameters]
+batch_size = 64
+num_workers = 4
+image_height = 300
+image_width = 300
+pin_memory = true
+load_model = true
+train = false

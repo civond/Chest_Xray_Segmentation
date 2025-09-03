@@ -1,0 +1,21 @@
+# ============================
+# Dataset Directories
+# ============================
+[Paths]
+train_data_dir = "./data_train/"
+valid_data_dir =  "./data_valid/"
+checkpoint_path = "./goodcheckpoint.pth.tar"
+
+# ============================
+# Hyperparameters
+# ============================
+[Hyperparameters]
+learning_rate = 1e-4
+batch_size = 64
+num_epochs = 10
+num_workers = 4
+image_height = 300
+image_width = 300
+pin_memory = true
+load_model = false
+train = true

@@ -30,7 +30,8 @@ class ImageDataset(Dataset):
         image = np.array(Image.open(img_path).convert("RGB"))
 
         # Load mask
-        mask_path = os.path.join(self.mask_dir, self.masks[index])
+        mask_name = self.masks[index]
+        mask_path = os.path.join(self.mask_dir, mask_name)
         mask = np.array(Image.open(mask_path).convert("L"))
         mask = mask // 255
 
@@ -44,4 +45,4 @@ class ImageDataset(Dataset):
             mask = augmented['mask']
             mask = mask.unsqueeze(0) # This will transform mask dimmensions from [height, width] --> [1, height, width]
 
-        return image, mask
+        return image, mask, mask_name

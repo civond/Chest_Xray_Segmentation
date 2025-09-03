@@ -11,7 +11,7 @@ def train_fn(device, loader, model, optimizer, loss_fn, scaler):
     total_dice = 0
 
     # Main loop
-    for batch_idx, (data, labels) in enumerate(loop):
+    for batch_idx, (data, labels, filenames) in enumerate(loop):
         data = data.to(device)
         labels = labels.to(device).float() # for BCE
 

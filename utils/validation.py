@@ -11,7 +11,7 @@ def val_fn(device, loader, model, loss_fn):
     total_dice = 0
 
     with torch.no_grad():
-        for data, labels in loop:
+        for data, labels, filenames in loop:
             data = data.to(device)
             labels = labels.to(device).float() # for BCE
 
