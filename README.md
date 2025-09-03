@@ -35,3 +35,14 @@
     <img src="./figures/pred3.png" width=250px>
     </br>
 </div>
+
+<h2>Usage:</h2>
+Training:
+
+    python main.py train train_settings.toml
+
+</br>
+Inference:
+
+    python main.py inference inference_settings.toml
+    
