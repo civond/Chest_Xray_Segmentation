@@ -5,6 +5,8 @@ import torch.nn as nn
 import segmentation_models_pytorch as smp
 import toml
 import argparse
+from datetime import datetime
+import time
 
 from utils.create_transforms import create_transforms, create_inference_transform
 from utils.get_loader import get_loader, get_inference_loader
@@ -164,9 +166,17 @@ def main():
                                 num_workers, 
                                 train, 
                                 pin_memory)
+        start_time = datetime.now()
         test_loss, test_dice = inference(save_dir, device, inference_loader, model, loss_fn)
+        end_time = datetime.now()
         print(f"test loss: {test_loss}")
         print(f"test dice: {test_dice}")
+        elapsed_time = end_time - start_time
+        time_per_sample = elapsed_time.total_seconds() / len(os.listdir(save_dir))
+
+        print(f"Seconds: {elapsed_time.total_seconds()}")
+        print(f"Time per sample: {time_per_sample}")
+        
     
 
 if __name__ == "__main__":

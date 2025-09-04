@@ -36,8 +36,8 @@ def inference(save_dir, device, loader, model, loss_fn):
                 mask = preds[i, 0, :, :]  # Remove batch & channel dims
                 mask = (mask * 255).astype("uint8")
 
-                save_path = os.path.join(save_dir, filenames[i])
-                cv2.imwrite(save_path, mask)
+                #save_path = os.path.join(save_dir, filenames[i])
+                #cv2.imwrite(save_path, mask)
 
     avg_loss = total_loss / len(loader)
     avg_dice = total_dice / len(loader)

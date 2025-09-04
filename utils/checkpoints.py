@@ -1,5 +1,4 @@
 import torch
-import datetime
 
 def save_checkpoint(state, filename = "my_checkpoint.pth.tar"):
     print("-> Saving checkpoint.")
